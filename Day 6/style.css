@@ -72,12 +72,12 @@ html {
   
   span.name {
       font-size: 20px;
-      display: flex;s
+      display: flex;
   }
 span.growth {
     font-size: 20px;
     display: flex;
-}
+};
   .hl {
     background: #ffc600;
   }
