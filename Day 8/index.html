@@ -1,0 +1,83 @@
+    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+    // grab the canvas to draw on it
+    const canvas = document.querySelector('#draw');
+    /// where the drawing will happen
+    const ctx = canvas.getContext('2d')
+
+    // size the canvas to the window
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+/// color the stroke
+    ctx.strokeStyle = '#BADA55';
+
+    /// make the stroke round
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.lineWidth = '50';
+
+
+    let isDrawing = false;
+    /// set the starting point for the line
+    let lastX = 0
+    let lastY = 0
+    let hue = 0
+    let direction = true
+
+/// create a function to draw on the canvas on click
+    function draw(e) {
+        if(!isDrawing) return; /// if the mouse isn't clicked, stop the function
+   ctx.strokeStyle=`hsl(${hue}, 100%, 40%)`;
+   /// start the path
+   ctx.beginPath();
+   /// move to
+   ctx.moveTo(lastX, lastY)
+   /// make a line between
+   ctx.lineTo(e.offsetX, e.offsetY);
+   ctx.stroke();
+    hue++;
+    if (hue >=360) {
+        hue = 0;
+    }
+    if(ctx.lineWidth >= 100 || ctx.lineWidth <=1) {
+        direction = !direction;
+    }
+    if(direction) {
+    ctx.lineWidth++;
+    } else {
+        ctx.lineWidth--;
+    }
+    /// make the line follow the mouse
+    [lastX, lastY] = [e.offsetX, e.offsetY]
+
+       }
+       
+
+    /// add the event listener for mouseclick held down
+     
+    canvas.addEventListener('mousedown', (e) => {
+        isDrawing = true;
+        [lastX, lastY] = [e.offsetX, e.offsetY];       
+    }) /// change isDrawing to true, ensure event is passed in, this also allows the new click to start a NEW line
+    canvas.addEventListener('mousemove', draw)/// draw when the mouse moves, this needs to come after mousedown to reset the line
+    canvas.addEventListener('mouseup', () => isDrawing = false) /// make isDrawing false
+    canvas.addEventListener('mouseout', () => isDrawing = false) /// when the mouse leaves the window, change isDrawing to false
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
