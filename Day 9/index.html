@@ -17,17 +17,47 @@
       p.style.fontSize = '50px';
     }
     // Regular
+    console.log('Hello');
     // Interpolated
+    console.log('Hello I am a %s!', ':D'); /// %s is replaced by whatever is after the comma in quotations
     // Styled
+    console.log('%c I am some text', 'font-size: 10px; background:green;');// %c allows the text to by styled
     // warning!
+    console.warn('OH NOO'); /// will display a warning in the console.
     // Error :|
+    console.error('Shit'); /// will display an error
     // Info
+    console.info('Crocodiles might eat people'); /// console will display an info sybol next to the message
     // Testing
+    const p = document.querySelector('p');
+    console.assert( 1 === 2, "assertion failed"); /// if the assertion fails, a messtion will be displayed
     // clearing
+    console.clear(); /// will clear the console.
     // Viewing DOM Elements
+    console.log(p) /// view the element itself in the console.
+    console.dir(p); /// shows the essence of the element
+
     // Grouping together
+    dogs.forEach(dog => {
+        console.groupCollapsed(`${dog.name}`); /// groups the info by the dogs individual names and returns a console log for each console under the dog's own heading.
+        console.log(`This is ${dog.name}`);
+        console.log(`${dog.name} is ${dog.age} years old`);
+        console.log(`${dog.name} is ${dog.age * 7} years old`);
+        console.groupEnd(`${dog.name}`);
+    })
+
     // counting
+    console.count('Matt') /// counts how many times something has been used in real time
+
     // timing
+    console.time('fetching data') /// see how long something takes
+    fetch('https://swapi.com/people')
+    .then(data => data.json())
+    .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data)
+    })
+
   </script>
 </body>
 </html>
